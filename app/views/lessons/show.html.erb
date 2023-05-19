@@ -1,0 +1,50 @@
+<% content_for :title, @lesson.title %>
+<%= render "shared/navbar" %>
+<div class="row mt-5">
+    <div class="col-md-6 p-5">
+        <div id="lesson_name">
+            <p class="h4 mb-3">Level <%= @level %>: <%= @lesson.title %> <span class="text-success h6"><% if @lesson_stat.status == 1 %><i class="fa-sharp fa-solid fa-circle-check"></i> Cleared<% end %></span></p>
+        </div>
+        <p><%= @lesson.content %></p>
+        <div class="mt-4" id="editor"><%= @lesson.code %></div>
+        <div class="text-end">
+            <button class="btn btn-success my-2" id="run_code">Run code</button>
+        </div>
+        <p class="m-1">Console:</p>
+        <div class="p-3" id="output"></div>
+    </div>
+    <div id="challenges" class="col-md-6 p-5">
+        <div class="text-end">
+            <% if @lesson_stat.lesson_id > 1 %>
+                <a class="btn btn-outline-success" href="/lessons/<%= @lesson_stat.lesson_id - 1 %>"><i class="fa-solid fa-circle-chevron-left"></i> Previous Level</a>
+            <% end %>
+            <% if @lesson_stat.status == 1 %>
+                <a class="btn btn-outline-success" href="/lessons/<%= @lesson_stat.lesson_id + 1 %>">Next Level <i class="fa-solid fa-circle-chevron-right"></i></a>
+            <% end%>
+        </div>
+        <p class="h4 mb-3">Challenges  <span class="h6 text-primary">( chances left: <%= @lesson_stat.chances %> )</span></p>
+        <p class="mb-4"><strong>Note:</strong> When the chances become zero, no score will be added, as every submission attempt reduces the remaining chances.</p>
+
+        <% count = 0 %>
+        <% @challenges.each do |challenge| %>
+            <% count += 1 %>
+            <p class="h4 text-primary">Challenge <%= count %>: <span class="text-success h6"><% if challenge.status == 1 %> <i class="fa-sharp fa-solid fa-circle-check"></i> Passed <% end %></span></p>
+            <p><%= challenge.content %></p>
+            <div class="code_field" id="editor<%= count %>"><%= challenge.answer_input %></div>
+            <div class="my-2 text-end">
+                <button class="btn btn-success" onclick="level_<%= @level %>_challenges('editor<%= count %>', 'output<%= count %>', <%= count %>)">Submit</button>
+            </div>
+            <div class="message" id="output<%= count %>"></div>
+        <% end %>    
+    </div>
+    <form id="update_stats" action="/update_stats/<%= @level %>" method="post" data-remote="true" >
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="patch">
+        <input type="hidden" name="challenge_id" value="" id="challenge_id">
+        <input type="hidden" name="answer_input" value="" id="answer_input">
+        <input type="hidden" name="test_result" value="" id="test_result">
+    </form>
+</div>
+
+
+

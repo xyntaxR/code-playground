@@ -1,0 +1,21 @@
+<% content_for :title, "Code Playground" %>
+<%= render "shared/navbar" %>
+<div class="mt-5">
+    <ul class="honeycomb">
+        <% (1..25).each do |i| %>
+            <li class="honeycomb-cell">
+                <% if i <= @user.level %>
+                    <div class="honeycomb-cell_title"><a href="/lessons/<%= i %>">Level <%= i %></a></div>
+                <% else %>
+                    <div class="honeycomb-cell_title h1"><i class="fa-solid fa-lock"></i></div>
+                <% end %>        
+            </li>
+        <% end %>   
+        <li class="honeycomb-cell honeycomb_Hidden">
+        </li>
+    </ul>
+</div>
+
+
+
+

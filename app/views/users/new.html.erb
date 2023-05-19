@@ -1,0 +1,36 @@
+<% content_for :title, "New Game" %>
+<%= render "shared/navbar" %>
+<div class="row p-4 mt-5">
+    <p class="h2">Hello new learner !</p>
+    <p class="mb-4">Are you ready to experience the fun of gamified learning?</p>
+</div>
+<div class="row">
+    <form class="col-md-4 offset-4" action="/users" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name=user[level] value="1">
+        <input type="hidden" name=user[score] value="0">
+        <div class="mb-4 row">
+            <label for="username" class="form-label col-sm-5 col-form-label">Username</label>
+            <div class="col-sm-7">
+                <input type="text" class="form-control" id="username" name=user[username]>
+            </div>
+        </div>
+        <div class="mb-4 row"> 
+            <label for="password" class="form-label col-sm-5 col-form-label">Password</label>
+            <div class="col-sm-7">
+                <input type="password" class="form-control" id="password" name=user[password]>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="password_confirmation" class="form-label col-sm-5 col-form-label">Confirm password</label>
+            <div class="col-sm-7">
+                <input type="password" class="form-control" id="password_confirmation" name=user[password_confirmation]>
+            </div>
+        </div>
+        <div class="mb-2 text-end">
+            <button type="submit" class="btn btn-success">Sign up</button>
+        </div>
+        <p>Already a learner? Resume your progress <a href="/signin">here.</a></p>
+        <%= render "shared/error_messages" %>
+    </form>
+</div>

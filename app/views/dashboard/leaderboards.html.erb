@@ -1,0 +1,36 @@
+<% content_for :title, "Leaderboards" %>
+<%= render "shared/navbar" %>
+<div class="mt-5 px-5 pt-2 text-center">
+    <p class="h2 m-4">Top Learners</p>
+    <div class="table-responsive w-75 mx-auto">
+        <table class="table table-light table-striped">
+            <thead>
+                <tr>
+                    <th scope="col" class="col-3">Username</th>
+                    <th scope="col" class="col-3">Level</th>
+                    <th scope="col" class="col-3">Score</th>
+                    <th scope="col" class="col-3">Badges unlocked</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @users.each do |user| %>
+                    <tr>
+                        <td><%= user.username %></td>
+                        <td><%= user.level %></td>
+                        <td><%= user.score %></td>
+                        <td>
+                            <% count = 0 %>
+                            <% badge_unlock_count = (user.score / 50).floor %>
+                            <% (1..6).each do |i| %>
+                                <% count += 1 %>
+                                <% if count <= badge_unlock_count %>
+                                    <img class="badges-unlocked" src=<%= asset_path( 'medal' + i.to_s + '.png' ) %> alt="img">
+                                <% end %>
+                            <% end %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>

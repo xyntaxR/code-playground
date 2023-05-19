@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-secondary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/lessons"><i class="fa-solid fa-gamepad"></i> Code Playground </a>
+        <% if @user %>    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="learner_stats" class="collapse navbar-collapse" id="navbarNav">       
+                <span class="navbar-text">
+                    Level reached: <%= @user.level %> | Current score: <%= @user.score %>
+                </span>
+                <ul class="navbar-nav ms-auto">
+                    <span class="navbar-text">
+                        Welcome!
+                    </span>            
+                    <li class="nav-item">
+                        <a class="nav-link text-primary" href="/users/<%= @user.id %>"><%= @user.username %></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/leaderboards"><i class="fa-solid fa-trophy"></i> Leaderboards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signout">Sign out <i class="fa-sharp fa-solid fa-right-from-bracket"></i></a>
+                    </li>
+                </ul>
+            </div>
+        <% end %>
+    </div>
+</nav>

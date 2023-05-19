@@ -1,0 +1,2 @@
+module ChallengeStatisticsHelper
+end

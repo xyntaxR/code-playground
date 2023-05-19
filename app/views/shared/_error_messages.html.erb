@@ -1,0 +1,9 @@
+<% if flash[:danger] %>
+	<div id="error_explanation" class="w-50 d-inline">
+		<ul>
+			<% flash[:danger].each do |msg| %>
+				<li class='text-danger'><%= msg %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

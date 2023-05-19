@@ -1,0 +1,23 @@
+<% content_for :title, "Edit Lesson" %>
+<div class="row p-5">
+    <h2>Editing <%= @lesson.title %></h2>
+    <%= render "shared/error_messages" %>
+    <%= render "shared/success_message" %>
+    <form action="/lessons/<%= @lesson.id %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="patch">
+        <div class="mb-4">
+            <label for="title" class="form-label col-sm-5 col-form-label">Title</label>
+            <input type="text" class="form-control bg-secondary text-light" id="title" name=lesson[title] value=<%= @lesson.title %>>
+        </div>
+        <div class="mb-4"> 
+            <label for="content" class="form-label col-sm-5 col-form-label">Content</label>
+            <textarea class="form-control bg-secondary text-light" name="lesson[content]" id="content" cols="30" rows="10"><%= @lesson.content %></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="code" class="form-label col-sm-5 col-form-label">Code</label>
+            <textarea class="form-control bg-secondary text-light" name="lesson[code]" id="code" cols="30" rows="10"><%= @lesson.code %></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Update lesson</button>
+    </form>
+</div>

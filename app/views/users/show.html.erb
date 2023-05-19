@@ -1,0 +1,36 @@
+<% content_for :title, "Profile" %>
+<%= render "shared/navbar" %>
+<div class="row mt-5 px-4 text-center">
+    <p class="h4 mb-3 mt-4">Achievements</p>
+    <% count = 0 %>
+    <% badge_unlock_count = (@user.score / 50).floor %>
+    <p><%= "No badges to display." if badge_unlock_count < 1 %></p>
+    <% @badges.each do |badge| %>
+        <% count += 1 %>
+        <% if count <= badge_unlock_count %>
+        <div class="col-md-4 mb-3 text-center">
+            <img class="badges d-block mx-auto img-fluid w-50" src="<%= asset_path( badge.image ) %>" badge-name="<%= badge.name %>" description="<%= badge.description %>" data-bs-toggle="modal" data-bs-target="#badge-modal" alt="badge">
+            <p id="badge-label"><%= badge.name %></p>
+        </div>
+        <% end %>
+    <% end %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="badge-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-center">
+            <div class="modal-header text-center">
+                <h1 class="modal-title fs-5" id="badge-title">Coding Conqueror</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                 <img id="badge-image" class="img-fluid" src=<%= asset_path( 'medal1.png' ) %> alt="img">
+            </div>
+            <div class="modal-footer">
+                <p id="description">For those who ascend to the pinnacle of achievement with a phenomenal score of 300, a crowning achievement is bestowed.</p>
+            </div>
+        </div>
+    </div>
+</div>
+

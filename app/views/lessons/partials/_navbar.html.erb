@@ -1,0 +1,22 @@
+<span class="navbar-text">
+    Level reached: <%= current_user.level %> | Current score: <%= current_user.score %>
+    <% if flash[:message] %>
+            <span id="achievement_notif" class="text-info"> <i class="fa-solid fa-medal"></i> Milestone reached! New Badge unlocked! <i class="fa-solid fa-medal"></i></span>
+    <% end %>
+</span>
+<ul class="navbar-nav ms-auto">
+    <span class="navbar-text">
+        Welcome!
+    </span>            
+    <li class="nav-item">
+        <a class="nav-link text-primary" href="/users/<%= current_user.id %>"><%= current_user.username %></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/leaderboards"><i class="fa-solid fa-trophy"></i> Leaderboards</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/signout">Sign out <i class="fa-sharp fa-solid fa-right-from-bracket"></i></a>
+    </li>
+</ul>
+
+<%= javascript_include_tag 'modals' %>

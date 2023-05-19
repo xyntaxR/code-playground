@@ -1,0 +1,25 @@
+<div class="text-end">
+    <% if @lesson_stat.lesson_id > 1 %>
+        <a class="btn btn-outline-success" href="/lessons/<%= @lesson_stat.lesson_id - 1 %>"><i class="fa-solid fa-circle-chevron-left"></i> Previous Level</a>
+    <% end %>
+    <% if @lesson_stat.status == 1 %>
+        <a class="btn btn-outline-success" href="/lessons/<%= @lesson_stat.lesson_id + 1 %>">Next Level <i class="fa-solid fa-circle-chevron-right"></i></a>
+    <% end%>
+</div>
+<p class="h4 mb-3">Challenges  <span class="h6 text-primary">( chances left: <%= @lesson_stat.chances %> )</span></p>
+<p class="mb-4"><strong>Note:</strong> When the chances become zero, no score will be added, as every submission attempt reduces the remaining chances.</p>
+
+<% count = 0 %>
+<% @challenges.each do |challenge| %>
+    <% count += 1 %>
+    <p class="h4 text-primary">Challenge <%= count %>: <span class="text-success h6"><% if challenge.status == 1 %> <i class="fa-sharp fa-solid fa-circle-check"></i> Passed <% end %></span></p>
+    <p><%= challenge.content %></p>
+    <div class="code_field" id="editor<%= count %>"><%= challenge.answer_input %></div>
+    <div class="my-2 text-end">
+        <button class="btn btn-success" onclick="level_<%= @level %>_challenges('editor<%= count %>', 'output<%= count %>', <%= count %>)">Submit</button>
+    </div>
+    <div class="message" id="output<%= count %>"></div>
+<% end %> 
+
+<%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.js" %>
+<%= javascript_include_tag 'challenges' %>
